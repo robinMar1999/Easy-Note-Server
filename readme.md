@@ -1,4 +1,4 @@
-### Easy Note Backend Server
+# Easy Note Backend Server
 
 1. Add default.json file to config folder.
 2. Add **mongoURI** and **jwtSecret** to default.json file.
