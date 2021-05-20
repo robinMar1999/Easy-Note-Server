@@ -27,7 +27,8 @@ router.get("/:topicId", auth, async (req, res) => {
   try {
     const topics = await Topic.find({ parent: req.params.topicId });
     const cards = await Card.find({ topic: req.params.topicId });
-    res.json({ topics, cards });
+    const topic = await Topic.findById(req.params.topicId);
+    res.json({ topic, topics, cards });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ errors: [{ msg: "Server error" }] });
@@ -89,7 +90,10 @@ router.post(
         parents: [...parent.parents],
         parent: req.params.parentId,
       });
-      topic.parents.push(req.params.parentId);
+      topic.parents.push({
+        parent: req.params.parentId,
+        title: parent.title,
+      });
 
       await topic.save();
 

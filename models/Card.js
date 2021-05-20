@@ -21,7 +21,9 @@ const CardSchema = Schema({
     type: String,
     required: true,
   },
-  sanitizedText: {},
+  sanitizedText: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,

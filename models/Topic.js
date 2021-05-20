@@ -9,8 +9,14 @@ const TopicSchema = Schema({
   },
   parents: [
     {
-      type: Schema.Types.ObjectId,
-      ref: "topic",
+      parent: {
+        type: Schema.Types.ObjectId,
+        ref: "topic",
+      },
+      title: {
+        type: String,
+        required: true,
+      },
     },
   ],
   parent: {
