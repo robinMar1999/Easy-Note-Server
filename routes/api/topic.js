@@ -54,6 +54,11 @@ router.post(
         user: req.userId,
       });
 
+      topic.parents.push({
+        parent: topic._id,
+        title: topic.title,
+      });
+
       await topic.save();
 
       res.json({ topic });
@@ -91,8 +96,8 @@ router.post(
         parent: req.params.parentId,
       });
       topic.parents.push({
-        parent: req.params.parentId,
-        title: parent.title,
+        parent: topic._id,
+        title: topic.title,
       });
 
       await topic.save();

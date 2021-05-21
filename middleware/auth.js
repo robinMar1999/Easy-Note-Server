@@ -4,7 +4,7 @@ const User = require("../models/User");
 const jwtSecret = process.env.jwtSecret || config.get("jwtSecret");
 
 const auth = async (req, res, next) => {
-  const token = req.header("x-auth-token");
+  const token = req.header("Authorization").split(" ")[1];
 
   if (!token) {
     return res
