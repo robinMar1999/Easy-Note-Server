@@ -6,6 +6,19 @@ const Card = require("../../models/Card");
 
 const router = express.Router();
 
+// @route     GET api/card/one/:id
+// @desc      Get all Cards
+// @access    Private
+router.get("/one/:id", auth, async (req, res) => {
+  try {
+    const card = await Card.findById(req.params.id);
+    res.json({ card });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ errors: [{ msg: "Server error" }] });
+  }
+});
+
 // @route     GET api/card/:id
 // @desc      Get all Cards
 // @access    Private

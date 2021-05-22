@@ -4,6 +4,7 @@ const auth = require("../../middleware/auth");
 const Topic = require("../../models/Topic");
 const Card = require("../../models/Card");
 const deleteTopic = require("../../utils/deleteTopic");
+const updateParent = require("../../utils/updateParent");
 
 const router = express.Router();
 
@@ -60,7 +61,6 @@ router.post(
       });
 
       await topic.save();
-
       res.json({ topic });
     } catch (err) {
       console.error(err.message);
@@ -132,7 +132,10 @@ router.patch(
       }
 
       topic.title = req.body.title;
+      topic.parents[topic.parents.length - 1].title = req.body.title;
+      const idx = topic.parents.length - 1;
       await topic.save();
+      updateParent(idx, topic._id, topic.title);
       res.json({ topic });
     } catch (err) {
       console.error(err.message);
