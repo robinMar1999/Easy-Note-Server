@@ -27,6 +27,10 @@ router.post(
         return res.status(400).json({ errors: errors.array() });
       }
       const { name, email, password } = req.body;
+      const prevEmail = await User.find({ email: email });
+      if (prevEmail) {
+        res.status(409).json({ errors: [{ msg: "Email already exists" }] });
+      }
       const user = new User({
         name,
         email,
