@@ -27,7 +27,7 @@ router.post(
         return res.status(400).json({ errors: errors.array() });
       }
       const { name, email, password } = req.body;
-      const prevEmail = await User.find({ email: email });
+      const prevEmail = await User.findOne({ email: email });
       if (prevEmail) {
         return res
           .status(409)
